@@ -33,14 +33,8 @@ lr = 0.0001                  # set learnning rate
 x_learn = torch.rand(10,1)   # initialise x_learn
 iteration = 10000            # set number of iterations
 for i in range(iteration):
-    # update x_learn
-    #loss=0.5*(((A.mm(x_learn)-y).t()).mm(A.mm(x_learn)-y))
-    #print(loss)
     loss_differential_x_learn=A.t().mm((A.mm(x_learn)-y))
     x_learn = x_learn - loss_differential_x_learn * lr / A.shape[0]
-    '''
-    your code end
-    '''
 error = torch.pow( x_learn -  x , 2).sum() 
 if error <= 1e-4:
     print('part1 is done')
@@ -110,16 +104,10 @@ grad = 0
 k=softmax_weights.shape[1]
 for i in range(epoch):
     for data in trainloader:
-#        print(data)
         imgs , labels = data      # load data
         imgs = imgs.view(-1,784)  # reshape to right size
-#        print(imgs)
         labels = labels.view(-1,1) # reshape to right size,
-        
         #Calculate grad(gradient):
-        '''
-        your code begin
-        '''
         p=torch.exp(imgs.mm(softmax_weights))
         sum_p=p.sum(-1)
         sum_p=sum_p.repeat(k,1)
@@ -127,17 +115,8 @@ for i in range(epoch):
         for j in range(imgs.shape[0]):
             err[j,labels[j]]+=1
         grad=-(1.0/imgs.shape[0])*(imgs.t().mm(err))
-        
-        # You need to calculate grad here
-        
-        # grad =  
-        
-        '''
-        your code end
-        '''
         # Update softmax_weights here:
         softmax_weights = softmax_weights - lr*grad
-        
         # testdata performance
     for data in testloader:
         imgs ,labels = data
