@@ -1,0 +1,2 @@
+# SoftMaxRegression
+python pytorch exercise
